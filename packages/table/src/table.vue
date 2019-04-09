@@ -18,7 +18,7 @@
       v-if="showHeader"
       v-mousewheel="handleHeaderFooterMousewheel"
       class="el-table__header-wrapper"
-      ref="headerWrapper">
+      ref="headerWrapper">sadcxvascvds
       <table-header
         ref="tableHeader"
         :store="store"
