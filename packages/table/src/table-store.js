@@ -178,6 +178,8 @@ const TableStore = function(table, initialState = {}) {
       table.$emit('selection-change', selection ? selection.slice() : []);
     }
     table.$emit('select-all', selection);
+    // 是否已全选
+    table.$emit('isAllSelected', states.isAllSelected);
     states.isAllSelected = value;
   });
 
