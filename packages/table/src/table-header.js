@@ -304,6 +304,7 @@ export default {
 
     toggleAllSelection(event) {
       event.stopPropagation();
+      console.log('toggleAllSelection');
       this.store.commit('toggleAllSelection');
     },
 
