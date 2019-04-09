@@ -76,25 +76,32 @@
         <slot name="append"></slot>
       </div>
     </template>
-    <textarea
-      v-else
-      :tabindex="tabindex"
-      class="el-textarea__inner"
-      @compositionstart="handleCompositionStart"
-      @compositionend="handleCompositionEnd"
-      @input="handleInput"
-      ref="textarea"
-      v-bind="$attrs"
-      :disabled="inputDisabled"
-      :readonly="readonly"
-      :autocomplete="autoComplete || autocomplete"
-      :style="textareaStyle"
-      @focus="handleFocus"
-      @blur="handleBlur"
-      @change="handleChange"
-      :aria-label="label"
-    >
-    </textarea>
+      <textarea
+        v-else
+        :tabindex="tabindex"
+        class="el-textarea__inner"
+        @compositionstart="handleCompositionStart"
+        @compositionend="handleCompositionEnd"
+        @input="handleInput"
+        ref="textarea"
+        v-bind="$attrs"
+        :disabled="inputDisabled"
+        :readonly="readonly"
+        :autocomplete="autoComplete || autocomplete"
+        :style="textareaStyle"
+        @focus="handleFocus"
+        @blur="handleBlur"
+        @change="handleChange"
+        :aria-label="label"
+        :maxlength="maxTextLen"
+      >
+      </textarea>
+      <div class="control" v-if="numShow && type === 'textarea'">
+        <p class="current">{{value.length}}</p>/<p class="total" id="total">{{maxTextLen}}</p>
+      </div>
+
+
+
   </div>
 </template>
 <script>
@@ -132,6 +139,10 @@
     },
 
     props: {
+      numShow: true,
+      maxTextLen: {
+        default: 100
+      },
       value: [String, Number],
       size: String,
       resize: String,
