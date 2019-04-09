@@ -74,7 +74,7 @@ const toggleRowSelection = function(states, row, selected) {
       changed = true;
     }
   }
-  localStorage.setItem('selection', JSON.stringify(selection));
+
   return changed;
 };
 
@@ -153,9 +153,6 @@ const TableStore = function(table, initialState = {}) {
     const data = states.data || [];
     if (data.length === 0) return;
     const selection = this.states.selection;
-    console.log('selection=', selection);
-    console.log('isAllSelected=', states.isAllSelected);
-    console.log('selectOnIndeterminate=', states.selectOnIndeterminate);
     // when only some rows are selected (but not all), select or deselect all of them
     // depending on the value of selectOnIndeterminate
     const value = states.selectOnIndeterminate
@@ -178,9 +175,9 @@ const TableStore = function(table, initialState = {}) {
       table.$emit('selection-change', selection ? selection.slice() : []);
     }
     table.$emit('select-all', selection);
+    states.isAllSelected = value;
     // 是否已全选
     table.$emit('isAllSelected', states.isAllSelected);
-    states.isAllSelected = value;
   });
 
   for (let prop in initialState) {
@@ -752,13 +749,5 @@ TableStore.prototype.loadData = function(row, treeNode) {
     });
   }
 };
-
-console.log('I DO REFRESH!!!');
-if (!this.states.selection) {
-  let selection = localStorage.getItem('selection');
-  if (selection) {
-    this.states.selection = JSON.parse(selection);
-  }
-}
 
 export default TableStore;
